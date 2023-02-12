@@ -86,6 +86,8 @@ function writePassword() {
 function generatePassword() {
   var passwordLength = prompt("Password Length (8-128)");
   passwordLength = Number(passwordLength);
+  var possibleArray = [];
+  var displayPassword = [];
 
   if (passwordLength <= 8 || passwordLength >= 128) {
     alert("Enter a number between 8 and 128.");
@@ -97,7 +99,26 @@ function generatePassword() {
   var blnNumbers = confirm("Include numbers?");
   var blnSpecialChar = confirm("Include special characters?");
 
-  return "hello world";
+  if (blnLowerCase) {
+    possibleArray = possibleArray.concat(lowerCase);
+  }
+  if (blnUpperCase) {
+    possibleArray = possibleArray.concat(upperCase);
+  }
+  if (blnNumbers) {
+    possibleArray = possibleArray.concat(numbers);
+  }
+  if (blnSpecialChar) {
+    possibleArray = possibleArray.concat(specialChar);
+  }
+
+  for (var i = 0; i < passwordLength; i++) {
+    passwordIndex = Math.floor(Math.random() * possibleArray.length);
+    displayPassword = displayPassword.concat(possibleArray[passwordIndex]);
+  }
+
+  displayPassword = displayPassword.join("");
+  return displayPassword;
 }
 
 // Add event listener to generate button
